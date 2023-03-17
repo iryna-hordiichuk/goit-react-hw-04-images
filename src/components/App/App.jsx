@@ -13,7 +13,6 @@ export class App extends Component {
     images: [],
     isShown: false,
     isEmpty: false,
-    isError: false,
   };
 
   componentDidUpdate(_, prevState) {
@@ -71,7 +70,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isEmpty, isLoading, isShown, query, isError } = this.state;
+    const { images, isEmpty, isLoading, isShown, query } = this.state;
     return (
       <StyledApp>
         <Searchbar onSubmit={this.onSubmit} />
