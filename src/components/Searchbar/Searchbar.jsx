@@ -1,5 +1,5 @@
 
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import {
   StyledHeader,
   StyledForm,
