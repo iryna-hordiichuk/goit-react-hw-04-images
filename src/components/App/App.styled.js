@@ -10,4 +10,5 @@ export const StyledApp = styled.div`
 export const ErrorMessage = styled.h2`
   width: 600px;
   margin: 0 auto;
+  color: ${p => p.theme.errorColor};
 `;

@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { StyledApp, ErrorMessage } from './App.styled';
+import {toast, Toaster } from 'react-hot-toast';
+import { Loader } from 'components/Loader/Loader';
+import { StyledApp, ErrorMessage} from './App.styled';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Button } from 'components/Button/Button';
@@ -11,8 +12,10 @@ export class App extends Component {
     query: '',
     page: 1,
     images: [],
+    isLoading: false,
     isShown: false,
     isEmpty: false,
+    isError: false,
   };
 
   componentDidUpdate(_, prevState) {
@@ -43,6 +46,7 @@ export class App extends Component {
     if (!query) {
       return;
     }
+    this.setState({isError: false});
     this.setState({ isLoading: true });
 
     try {
@@ -50,6 +54,7 @@ export class App extends Component {
 
       if (images.hits.length === 0) {
         this.setState({ isEmpty: true });
+        toast('Sorry, no images were found')
       }
 
         this.setState(prevState => ({
@@ -70,18 +75,15 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isEmpty, isLoading, isShown, query } = this.state;
+    const { images, isEmpty, isLoading, isShown, isError} = this.state;
     return (
       <StyledApp>
         <Searchbar onSubmit={this.onSubmit} />
         <Toaster position="top-right" />
+        {isLoading && <Loader/>}
         {!isEmpty && <ImageGallery images={images} />}
-        {isShown && (
-          <Button onClick={this.getPage}>
-            {isLoading ? 'Loading...' : 'Load More'}
-          </Button>
-        )}
-        {query && isEmpty && <ErrorMessage>Sorry, no images were found.</ErrorMessage>}
+        {isShown && !isLoading && <Button onClick={this.getPage}> Load more </Button>}
+        {isError && <ErrorMessage/>}
       </StyledApp>
     );
   }

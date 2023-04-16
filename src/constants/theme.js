@@ -7,6 +7,7 @@ export const theme = {
       backgroundBody: '#fff',
       accentColor: '#3f51b5',
       hoverColor: '#303f9f',
+      errorColor: '#ff0000',
     },
     space: [0, 2, 4, 8, 12, 16, 24, 32, 64, 128, 256],
     fonts: {
