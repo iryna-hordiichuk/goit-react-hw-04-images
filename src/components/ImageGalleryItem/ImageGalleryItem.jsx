@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from 'components/Modal/Modal';
 import { StyledGalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 
@@ -17,8 +18,15 @@ export class ImageGalleryItem extends Component {
     showModal: false,
   };
 
+  static propTypes = {
+    id: PropTypes.number,
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  };
+
   toggleModal = () => {
-   this.setState(state => ({ showModal: !this.state.showModal, }));
+   this.setState(state => ({showModal: !this.state.showModal, }));
   };
 
   render() {
@@ -41,3 +49,5 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+
+

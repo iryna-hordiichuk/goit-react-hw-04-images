@@ -6,9 +6,3 @@ export const StyledApp = styled.div`
   grid-gap: ${p => p.theme.space[5]}px;
   padding-bottom: ${p => p.theme.space[6]}px;
 `;
-
-export const ErrorMessage = styled.h2`
-  width: 600px;
-  margin: 0 auto;
-  color: ${p => p.theme.errorColor};
-`;

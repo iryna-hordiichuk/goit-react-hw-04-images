@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import {toast, Toaster } from 'react-hot-toast';
 import { Loader } from 'components/Loader/Loader';
-import { StyledApp, ErrorMessage} from './App.styled';
+import { StyledApp } from './App.styled';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Button } from 'components/Button/Button';
@@ -64,6 +64,7 @@ export class App extends Component {
       }));
     } catch (error) {
       this.setState({ isError: true });
+      toast.error('Something went wrong, please try again')
       console.log(error);
     } finally {
       this.setState({ isLoading: false });
@@ -75,15 +76,14 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isEmpty, isLoading, isShown, isError} = this.state;
+    const { images, isEmpty, isLoading, isShown} = this.state;
     return (
       <StyledApp>
         <Searchbar onSubmit={this.onSubmit} />
-        <Toaster position="top-right" />
+        <Toaster position="top-right"/>
         {isLoading && <Loader/>}
         {!isEmpty && <ImageGallery images={images} />}
         {isShown && !isLoading && <Button onClick={this.getPage}> Load more </Button>}
-        {isError && <ErrorMessage/>}
       </StyledApp>
     );
   }
