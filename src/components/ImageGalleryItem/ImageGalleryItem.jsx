@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modal/Modal';
 import { StyledGalleryItem, GalleryImage } from './ImageGalleryItem.styled';
@@ -13,41 +13,40 @@ import { StyledGalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 // stacking context у них один.
 // в цій ДЗ модалка рендериться найнижче по списку
 // тому візуально проблеми не видно ??? запитати у ментора
-export class ImageGalleryItem extends Component {
-  state = {
-    showModal: false,
-  };
 
-  static propTypes = {
-    id: PropTypes.number,
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
-  };
+export const ImageGalleryItem = ({id, largeImageURL, webformatURL, tags }) => {
 
-  toggleModal = () => {
-   this.setState(state => ({showModal: !this.state.showModal, }));
-  };
+const [showModal, setShowModal] = useState(false);
 
-  render() {
-    const { showModal } = this.state;
-    const { largeImageURL, webformatURL, tags } = this.props;
+const toggleModal = () => {
+  setShowModal(prevShowModal => !prevShowModal)
+}
 
-    return (
-      <>
-        <StyledGalleryItem onClick={this.toggleModal}>
-          <GalleryImage src={webformatURL} alt={tags} width='400' />
-        </StyledGalleryItem>
-        {showModal && (
-          <Modal
-            largeImageURL={largeImageURL}
-            tags={tags}
-            onClose={this.toggleModal}
-          />
-        )}
-      </>
-    );
-  }
+return (
+  <>
+    <StyledGalleryItem key={id} onClick={toggleModal}>
+      <GalleryImage src={webformatURL} alt={tags} width='400' />
+    </StyledGalleryItem>
+    {showModal && (
+      <Modal
+        largeImageURL={largeImageURL}
+        tags={tags}
+        onClose={toggleModal}
+      />
+    )}
+  </>
+);
+
+
+
 }
 
 
+
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.number,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};
