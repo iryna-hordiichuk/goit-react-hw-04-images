@@ -50,7 +50,7 @@ export const App = () => {
         }
 
         setImages(prevImages => [...prevImages, ...images.hits]);
-        setIsShown(prevPage => prevPage < Math.ceil(images.totalHits));
+        setIsShown (page < Math.ceil(images.totalHits/12));
         setIsEmpty(false);
       } catch (error) {
         // setIsError(true);
